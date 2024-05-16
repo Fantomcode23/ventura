@@ -12,8 +12,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { PanelLeft } from "lucide-react";
+import { SidebarList } from "./sidebar-list";
+import useUserStore from "@/store/user-store";
+import React from "react";
 
 export function Sidebar() {
+  const { user } = useUserStore();
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -21,19 +25,16 @@ export function Sidebar() {
           <PanelLeft />
         </Button>
       </SheetTrigger>
-      <SheetContent side={"left"} className=" sm:max-w-[300px]">
-        <SheetHeader>
-          <SheetTitle>Chat History</SheetTitle>
-          {/* <SheetDescription>
-            Make changes to your profile here. Click save when you're done.
-          </SheetDescription> */}
+      <SheetContent
+        side={"left"}
+        className="inset-y-0 flex h-auto w-[300px] flex-col p-0"
+      >
+        <SheetHeader className="p-4">
+          <SheetTitle className="text-sm">Chat History</SheetTitle>
         </SheetHeader>
-
-        {/* <SheetFooter>
-          <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
-          </SheetClose>
-        </SheetFooter> */}
+        <React.Suspense fallback={null}>
+          <SidebarList userId={user?.id} />
+        </React.Suspense>
       </SheetContent>
     </Sheet>
   );

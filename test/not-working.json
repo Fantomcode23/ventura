@@ -1,0 +1,47 @@
+{
+  "id": "CsozZIw",
+  "path": "/chat/CsozZIw",
+  "title": "Hello this is a test message",
+  "userId": "a9da88cc-a175-410f-9563-067213bfd2c7",
+  "messages": [
+    {
+      "role": "assistant",
+      "content": {
+        "id": "CsozZIw",
+        "path": "/chat/CsozZIw",
+        "title": "Hello this is a test message",
+        "userId": "a9da88cc-a175-410f-9563-067213bfd2c7",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Hello this is a test message"
+          },
+          {
+            "role": "assistant",
+            "content": "Hello! How can I assist you today?"
+          },
+          {
+            "role": "user",
+            "content": "test"
+          },
+          {
+            "role": "assistant",
+            "content": "Great! What would you like to test or try out? Let me know how I can help."
+          },
+          {
+            "id": "x1yC1qE",
+            "role": "user",
+            "content": "again testing"
+          },
+          {
+            "id": "yZI8J0n",
+            "role": "assistant",
+            "content": "Sure, feel free to test anything you'd like. I'm here to assist you with any questions or tasks you have. Just let me know how I can help!"
+          }
+        ],
+        "createdAt": "2024-05-16T10:33:09.236Z"
+      }
+    }
+  ],
+  "createdAt": 1715855589574
+}
