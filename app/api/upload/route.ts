@@ -1,11 +1,12 @@
 import { env } from "@/lib/langchain/config";
 import { getPineconeClient } from "@/lib/langchain/pinecone-client";
-import { PineconeClient } from "@pinecone-database/pinecone";
+// import { PineconeClient } from "@pinecone-database/pinecone";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-import { PineconeStore } from "langchain/vectorstores/pinecone";
+import { PineconeStore } from "@langchain/pinecone";
 import { NextResponse } from "next/server";
+import { Pinecone } from "@pinecone-database/pinecone";
 
 export async function POST(request: Request) {
   try {
@@ -34,17 +35,11 @@ export async function POST(request: Request) {
 
       console.log(`Loading ${chunkedDocs.length} chunks into Pinecone...`);
 
-      // Embed the chunks and store them in Pinecone
-      const pineconeClient = new PineconeClient();
-      await pineconeClient.init({
-        apiKey: env.PINECONE_API_KEY,
-        environment: env.PINECONE_ENVIRONMENT,
-      });
+      const pinecone = new Pinecone();
+      const pineconeIndex = pinecone.Index(env.PINECONE_INDEX_NAME);
 
-      const embeddings = new OpenAIEmbeddings();
-      const index = pineconeClient.Index(env.PINECONE_INDEX_NAME);
-      await PineconeStore.fromDocuments(docs, embeddings, {
-        pineconeIndex: index,
+      await PineconeStore.fromDocuments(docs, new OpenAIEmbeddings(), {
+        pineconeIndex,
         textKey: "text",
       });
 
