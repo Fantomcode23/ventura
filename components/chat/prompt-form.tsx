@@ -18,6 +18,7 @@ import {
 import { useEnterSubmit } from "@/lib/hooks/use-enter-submit";
 import { nanoid } from "nanoid";
 import { useRouter } from "next/navigation";
+import { createChat } from "@/actions/db-actions";
 
 export function PromptForm({
   input,
@@ -76,7 +77,7 @@ export function PromptForm({
                 size="icon"
                 className="absolute left-0 top-[14px] size-8 rounded-full bg-background p-0 sm:left-4"
                 onClick={() => {
-                  router.push("/new");
+                  createChat();
                 }}
               >
                 <IconPlus />

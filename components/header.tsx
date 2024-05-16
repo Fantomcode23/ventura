@@ -20,9 +20,9 @@ import { ModeToggle } from "./mode-toggle";
 import { UserMenu } from "./auth/user-menu";
 import useAuthModal from "@/store/auth-modal-store";
 import { Sidebar } from "./sidebar/sidebar";
+import { User } from "@supabase/supabase-js";
 
-function UserOrLogin() {
-  const { user } = useUserStore();
+function UserOrLogin({ user }: { user: User }) {
   const { setIsAuthModalOpen } = useAuthModal();
   return (
     <>
@@ -52,12 +52,11 @@ function UserOrLogin() {
 }
 
 export function Header() {
+  const { user } = useUserStore();
   return (
     <header className="sticky top-0 z-50 flex items-center justify-between w-full h-16 px-4 border-b shrink-0 bg-gradient-to-b from-background/10 via-background/50 to-background/80 backdrop-blur-xl">
       <div className="flex items-center">
-        {/* <React.Suspense fallback={<div className="flex-1 overflow-auto" />}> */}
-        <UserOrLogin />
-        {/* </React.Suspense> */}
+        <UserOrLogin user={user as User} />
       </div>
       <div className="flex items-center justify-end space-x-2">
         <ModeToggle />
