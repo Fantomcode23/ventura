@@ -1,12 +1,4 @@
-import Balancer from "react-wrap-balancer";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+"use client";
 import {
   Accordion,
   AccordionContent,
@@ -14,7 +6,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Message } from "ai/react";
-import ReactMarkdown from "react-markdown";
 
 import { IconUser } from "@/components/ui/icons";
 import { spinner } from "@/components/chat/spinner";
@@ -22,10 +13,12 @@ import { spinner } from "@/components/chat/spinner";
 import MarkdownPreview from "@uiw/react-markdown-preview";
 import { Bot } from "lucide-react";
 import { useTheme } from "next-themes";
-import { CodeBlock } from "@/components/chat/codeblock";
+// import { CodeBlock } from "@/components/chat/codeblock";
 import { MemoizedReactMarkdown } from "@/components/chat/markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
+import MermaidRaw from "./mermaid-raw";
+import { useEffect } from "react";
 
 export function UserMessage({ children }: { children: React.ReactNode }) {
   return (
@@ -40,20 +33,10 @@ export function UserMessage({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function BotMessage({
-  text,
-  onChange,
-  isLoading,
-  theme,
-}: {
-  text: string;
-  code?: string;
-  onChange?: (val: string) => void;
-  isLoading: boolean;
-  theme: any;
-}) {
+export function BotMessage({ text }: { text: string }) {
   const mermaidRegex = /```mermaid\n([\s\S]*?)\n```/;
   const mermaidMatch = text.match(mermaidRegex);
+  const { theme } = useTheme();
 
   return (
     <div className="group relative flex items-start md:-ml-12">
@@ -62,49 +45,20 @@ export function BotMessage({
       </div>
       <div className="ml-4 flex-1 space-y-2 overflow-hidden  flex w-max max-w-[75%] flex-col gap-2 rounded-lg px-3 py-4 text-sm bg-muted">
         <div data-color-mode={theme}>
-          <MemoizedReactMarkdown
-            className="prose break-words dark:prose-invert prose-p:leading-relaxed prose-pre:p-0"
-            remarkPlugins={[remarkGfm, remarkMath]}
-            components={{
-              p({ children }) {
-                return <p className="mb-2 last:mb-0">{children}</p>;
-              },
-              code({ node, inline, className, children, ...props }) {
-                if (children.length) {
-                  if (children[0] == "▍") {
-                    return (
-                      <span className="mt-1 animate-pulse cursor-default">
-                        ▍
-                      </span>
-                    );
-                  }
-
-                  children[0] = (children[0] as string).replace("`▍`", "▍");
-                }
-
-                const match = /language-(\w+)/.exec(className || "");
-
-                if (inline) {
-                  return (
-                    <code className={className} {...props}>
-                      {children}
-                    </code>
-                  );
-                }
-
-                return (
-                  <CodeBlock
-                    key={Math.random()}
-                    language={(match && match[1]) || ""}
-                    value={String(children).replace(/\n$/, "")}
-                    {...props}
-                  />
-                );
-              },
+          <MarkdownPreview
+            source={text}
+            style={{
+              backgroundColor:
+                theme === "dark" ? "rgb(38, 38, 38)" : "rgb(245 245 245)",
+              color: theme === "dark" ? "#fff" : "#000",
             }}
-          >
-            {text}
-          </MemoizedReactMarkdown>
+          />
+          {mermaidMatch && (
+            <MermaidRaw
+              chart={mermaidMatch ? mermaidMatch[1] : ""}
+              isLoading={false}
+            />
+          )}
         </div>
       </div>
     </div>
@@ -160,7 +114,7 @@ export function ChatLine({
   return (
     <div className=" my-4 w-full md:px-96">
       {role === "assistant" ? (
-        <BotMessage text={content} isLoading={false} theme={theme} />
+        <BotMessage text={content} />
       ) : (
         <UserMessage>{formattedMessage}</UserMessage>
       )}

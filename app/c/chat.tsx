@@ -33,7 +33,7 @@ const initialMessages: Message[] = [
     id: "0",
     content:
       // "Hi! I am your PDF assistant. Upload a PDF or multiple PDF's to get started.",
-      "Hi! I am DocuSage, your PDF assistant. Upload pdf files to get started.",
+      "Hi! I am DocuSage, your PDF assistant. Upload pdf files to get started. ",
   },
 ];
 
