@@ -6,6 +6,8 @@ import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { PineconeStore } from "@langchain/pinecone";
 import { NextResponse } from "next/server";
 import { Pinecone } from "@pinecone-database/pinecone";
+import { createClient } from "@/utils/supabase/server";
+import { nanoid } from "@/lib/utils";
 
 export async function POST(request: Request) {
   try {
@@ -44,6 +46,26 @@ export async function POST(request: Request) {
       });
 
       console.log(`Data from ${file.name} embedded and stored in Pinecone.`);
+
+      const supabase = createClient();
+
+      const id = nanoid();
+
+      const { data: pdfData, error: pdfError } = await supabase.storage
+        .from("pdfbucket")
+        .upload(`${file.name}+${id}`, file);
+
+      const { data } = supabase.storage
+        .from("pdfbucket")
+        .getPublicUrl(`${file.name}+${id}`);
+
+      await supabase.from("chat_pdfs").insert([
+        {
+          chat_id: chatId,
+          pdf_url: data.publicUrl,
+          pdf_name: file.name,
+        },
+      ]);
     }
 
     return NextResponse.json({ message: "Upload successful" });

@@ -16,6 +16,7 @@ import { SidebarList } from "./sidebar-list";
 import useUserStore from "@/store/user-store";
 import React from "react";
 import { spinner } from "../chat/spinner";
+import { Skeleton } from "../ui/skeleton";
 
 export function Sidebar() {
   const { user } = useUserStore();
@@ -38,7 +39,9 @@ export function Sidebar() {
         <React.Suspense
           fallback={
             <div className="w-full mx-auto h-64 items-center justify-center">
-              {spinner}
+              <Skeleton className="w-11/12 h-4 p-2 m-1" />
+              <Skeleton className="w-11/12 h-4 p-2 m-1" />
+              <Skeleton className="w-11/12 h-4 p-2 m-1" />
             </div>
           }
         >

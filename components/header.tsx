@@ -21,6 +21,7 @@ import { UserMenu } from "./auth/user-menu";
 import useAuthModal from "@/store/auth-modal-store";
 import { Sidebar } from "./sidebar/sidebar";
 import { User } from "@supabase/supabase-js";
+import Image from "next/image";
 
 function UserOrLogin({ user }: { user: User }) {
   const { setIsAuthModalOpen } = useAuthModal();
@@ -32,8 +33,7 @@ function UserOrLogin({ user }: { user: User }) {
         </>
       ) : (
         <Link href="/new" rel="nofollow">
-          <IconNextChat className="size-6 mr-2 dark:hidden" inverted />
-          <IconNextChat className="hidden size-6 mr-2 dark:block" />
+          <Image src="/docusage.png" alt="logo" width={40} height={40} />
         </Link>
       )}
       <div className="flex items-center">
