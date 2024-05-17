@@ -2,10 +2,11 @@ import { type Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 
 import { getChat } from "@/actions/db-actions";
-import { Chat } from "@/components/chat/chat";
+
 import { createClient } from "@/utils/supabase/server";
 import { AI } from "@/lib/chat/actions";
 import useUserStore from "@/store/user-store";
+import { Chat } from "../chat";
 
 export interface ChatPageProps {
   params: {
@@ -34,14 +35,10 @@ export default async function ChatPage({ params }: ChatPageProps) {
   } = await supabase.auth.getUser();
 
   //   if (!user) {
-  //     redirect(`/login?next=/chat/${params.id}`);
+  //     redirect(`/login?next=/c/${params.id}`);
   //   }
 
   const chat = await getChat(params.id);
 
-  return (
-    <AI initialAIState={{ chatId: chat.id, messages: chat.messages }}>
-      <Chat id={chat.id} initialMessages={chat.messages} />
-    </AI>
-  );
+  return <Chat chatId={params.id} />;
 }

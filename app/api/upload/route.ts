@@ -1,6 +1,5 @@
 import { env } from "@/lib/langchain/config";
-import { getPineconeClient } from "@/lib/langchain/pinecone-client";
-// import { PineconeClient } from "@pinecone-database/pinecone";
+
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
@@ -12,6 +11,7 @@ export async function POST(request: Request) {
   try {
     const formData = await request.formData();
     const files = formData.getAll("pdfs") as File[];
+    const chatId = formData.get("chatId") as string;
 
     for (const file of files) {
       if (file.type !== "application/pdf") {
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
       console.log(`Loading ${chunkedDocs.length} chunks into Pinecone...`);
 
       const pinecone = new Pinecone();
-      const pineconeIndex = pinecone.Index(env.PINECONE_INDEX_NAME);
+      const pineconeIndex = pinecone.Index(chatId);
 
       await PineconeStore.fromDocuments(docs, new OpenAIEmbeddings(), {
         pineconeIndex,

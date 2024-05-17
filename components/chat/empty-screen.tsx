@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { PlusIcon, Upload } from "lucide-react";
+import { PlusIcon, Send, Upload, UploadCloud } from "lucide-react";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
+import { Input } from "../ui/input";
+import { Separator } from "../ui/separator";
 
-export function EmptyScreen() {
+export function EmptyScreen({ chatId }: { chatId: string }) {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,6 +23,7 @@ export function EmptyScreen() {
 
     const formData = new FormData();
     selectedFiles.forEach((file) => formData.append("pdfs", file));
+    formData.append("chatId", chatId);
 
     try {
       const response = await fetch("/api/upload", {
@@ -49,35 +52,34 @@ export function EmptyScreen() {
 
   return (
     <div className="mx-auto max-w-2xl px-4">
-      <div className="flex flex-col items-center justify-center gap-2 rounded-lg border bg-background p-8">
-        <label htmlFor="pdf-upload" className="cursor-pointer">
+      <div className="flex flex-col items-center justify-center gap-2 rounded-lg  bg-background ">
+        {/* <label htmlFor="pdf-upload" className="cursor-pointer">
           <Button variant={"outline"} className="w-14 h-14">
             <Upload className="w-12" />
           </Button>
-        </label>
-        <input
+        </label> */}
+        <Input
           type="file"
           id="pdf-upload"
+          className="h-16 flex flex-col items-center justify-center"
           multiple
           accept=".pdf"
           onChange={handleFileChange}
         />
-        <h1 className="text-lg font-semibold">Upload pdf files</h1>
-        <p className="leading-normal text-muted-foreground">
-          Upload a file or start a conversation to get started.
-        </p>
+
         <Button
           onClick={handleUpload}
+          disabled={selectedFiles.length === 0}
           className="flex flex-row items-center mt-2 text-sm justify-center"
         >
-          <PlusIcon className="size-4 mr-1 " /> Attach files
+          <UploadCloud className="size-4 mr-1 " /> Upload files
         </Button>
-        {/* Display selected file names (optional) */}
         <ul>
           {selectedFiles.map((file) => (
             <li key={file.name}>{file.name}</li>
           ))}
         </ul>
+        <Separator className="my-2" />
       </div>
     </div>
   );

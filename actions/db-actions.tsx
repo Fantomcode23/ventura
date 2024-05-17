@@ -1,10 +1,9 @@
 "use server";
 
 import { env } from "@/lib/langchain/config";
-import { delay } from "@/lib/langchain/utils";
 import { nanoid } from "@/lib/utils";
 import { createClient } from "@/utils/supabase/server";
-import { PineconeClient } from "@pinecone-database/pinecone";
+import { Pinecone } from "@pinecone-database/pinecone";
 import { type Message } from "ai";
 import { redirect } from "next/navigation";
 
@@ -108,7 +107,7 @@ export async function saveChat(chat: Chat) {
   const title = chat.messages[0].content.substring(0, 100);
   const id = chat.id;
   const createdAt = Date.now();
-  const path = `/chat/${id}`;
+  const path = `/c/${id}`;
   const payload = {
     id,
     title,
@@ -130,18 +129,20 @@ export async function createChat() {
 
   const id = nanoid();
 
-  const pineconeClient = new PineconeClient();
-  await pineconeClient.init({
-    apiKey: env.PINECONE_API_KEY,
-    environment: env.PINECONE_ENVIRONMENT,
-  });
-  const indexName = id;
   try {
-    await pineconeClient.createIndex({
-      createRequest: {
-        name: indexName,
-        dimension: 1536,
-        metric: "cosine",
+    const pc = new Pinecone({
+      apiKey: env.PINECONE_API_KEY,
+    });
+
+    await pc.createIndex({
+      name: id,
+      dimension: 1536,
+      metric: "cosine",
+      spec: {
+        serverless: {
+          cloud: "aws",
+          region: "us-east-1",
+        },
       },
     });
 
@@ -151,19 +152,17 @@ export async function createChat() {
     throw new Error("Index creation failed");
   }
 
-  const { data, error } = await supabase.from("chats").upsert({
+  await supabase.from("chats").upsert({
     id: id,
     user_id: user?.id as string,
     payload: {
       id,
-      path: `/chat/${id}`,
+      path: `/c/${id}`,
       title: "New Chat",
       userId: user?.id,
       messages: [],
     },
   });
 
-  redirect(`/chat/${id}`);
-
-  return id;
+  redirect(`/c/${id}`);
 }

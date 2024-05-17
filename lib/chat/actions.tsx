@@ -27,6 +27,7 @@ import { saveChat } from "@/actions/db-actions";
 import { SpinnerMessage, UserMessage } from "@/components/chat/message";
 import { Chat } from "@/lib/types";
 import { StocksSkeleton } from "@/components/chat/stocks-skeleton";
+import { callChain } from "../langchain/langchain";
 
 async function confirmPurchase(symbol: string, price: number, amount: number) {
   "use server";
@@ -230,7 +231,7 @@ export const AI = createAI<AIState, UIState>({
 
       const createdAt = new Date();
       const userId = user.id as string;
-      const path = `/chat/${chatId}`;
+      const path = `/c/${chatId}`;
       const title = messages[0].content.substring(0, 100);
 
       const chat: Chat = {

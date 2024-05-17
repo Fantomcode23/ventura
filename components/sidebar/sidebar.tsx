@@ -15,9 +15,11 @@ import { PanelLeft } from "lucide-react";
 import { SidebarList } from "./sidebar-list";
 import useUserStore from "@/store/user-store";
 import React from "react";
+import { spinner } from "../chat/spinner";
 
 export function Sidebar() {
   const { user } = useUserStore();
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -27,12 +29,19 @@ export function Sidebar() {
       </SheetTrigger>
       <SheetContent
         side={"left"}
-        className="inset-y-0 flex h-auto w-[300px] flex-col p-0"
+        className="inset-y-0  flex h-auto w-[300px] flex-col p-0"
       >
-        <SheetHeader className="p-4">
+        <SheetHeader className="p-4 ">
           <SheetTitle className="text-sm">Chat History</SheetTitle>
         </SheetHeader>
-        <React.Suspense fallback={null}>
+
+        <React.Suspense
+          fallback={
+            <div className="w-full mx-auto h-64 items-center justify-center">
+              {spinner}
+            </div>
+          }
+        >
           <SidebarList userId={user?.id} />
         </React.Suspense>
       </SheetContent>

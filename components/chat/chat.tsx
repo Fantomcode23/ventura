@@ -33,7 +33,7 @@ export function Chat({ id, className }: ChatProps) {
   useEffect(() => {
     if (user) {
       if (!path.includes("chat") && messages.length === 1) {
-        window.history.replaceState({}, "", `/chat/${id}`);
+        window.history.replaceState({}, "", `/c/${id}`);
       }
     }
   }, [id, path, user, messages]);
@@ -64,7 +64,7 @@ export function Chat({ id, className }: ChatProps) {
         {messages.length ? (
           <ChatList messages={messages} isShared={false} />
         ) : (
-          <EmptyScreen />
+          <div />
         )}
         <div className="h-px w-full" ref={visibilityRef} />
       </div>
