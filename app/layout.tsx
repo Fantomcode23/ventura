@@ -9,8 +9,14 @@ import { Header } from "@/components/header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Ventura",
-  description: "Created for FantomCode hackathon and betterment of humanity",
+  title: "DocuSage",
+  description:
+    " DocuSage is a PDF chatbot assistant that helps you  understand all of your multiple PDF files at once. ",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-32x32.png",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
