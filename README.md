@@ -1,10 +1,9 @@
 ## DocuSage
 
 1. **Information Overload Management**: Automatically analyze and extract key information from vast amounts of documents including research papers, textbooks, and articles.
-2. **Question Generation**: Assist in formulating effective research questions to guide the research process.
-3. **Simplified Citations**: Provide easy-to-refer sources for seamless citation management.
-4. **Interactive Exploration**: Allow for dynamic and multidimensional exploration of documents to uncover deeper insights.
-5. **Efficient Research Workflow**: Integrate document analysis, data extraction, and question generation into a streamlined workflow.
+2. **Simplified Citations**: Provide easy-to-refer sources for seamless citation management.
+3. **Interactive Exploration**: Allow for dynamic and multidimensional exploration of documents to uncover deeper insights.
+4. **Efficient Research Workflow**: Integrate document analysis, data extraction, and question generation into a streamlined workflow.
 
 ## Tech Stack
 
@@ -44,3 +43,8 @@ Ensure you have the following installed:
 - **Document Analysis (Langchain/OpenAI)**: Extract insights with NLP.
 - **Scalable Backend (Node.js/Vercel)**: Process requests and handle NLP tasks.
 - **Data Management (Supabase)**: Store chats, extracted information and uploaded files.
+
+![image](https://github.com/Fantomcode23/ventura/assets/96766940/343065cf-2aec-4310-8fe4-b5d3786dc809)
+
+![image](https://github.com/Fantomcode23/ventura/assets/96766940/d408075f-3f6a-46d2-8661-be35bce1f81d)
+
