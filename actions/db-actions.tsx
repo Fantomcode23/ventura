@@ -1,6 +1,5 @@
 "use server";
 
-import { env } from "@/lib/langchain/config";
 import { nanoid } from "@/lib/utils";
 import { createClient } from "@/utils/supabase/server";
 import { Pinecone } from "@pinecone-database/pinecone";
@@ -131,7 +130,7 @@ export async function createChat() {
 
   try {
     const pc = new Pinecone({
-      apiKey: env.PINECONE_API_KEY,
+      apiKey: process.env.PINECONE_API_KEY!,
     });
 
     await pc.createIndex({

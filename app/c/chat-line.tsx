@@ -151,11 +151,11 @@ export function ChatLine({
   hasResponseStarted,
   isLoading,
 }: ChatLineProps) {
+  const { theme } = useTheme();
   if (!content) {
     return null;
   }
   const formattedMessage = convertNewLines(content);
-  const { theme } = useTheme();
 
   return (
     <div className=" my-4 w-full md:px-96">

@@ -10,7 +10,6 @@ import { Pinecone } from "@pinecone-database/pinecone";
 
 import { streamingModel, nonStreamingModel } from "./llm";
 import { STANDALONE_QUESTION_TEMPLATE, QA_TEMPLATE } from "./prompt-templates";
-import { env } from "./config";
 
 type callChainArgs = {
   question: string;
@@ -28,7 +27,7 @@ export async function callChain({
     const sanitizedQuestion = question.trim().replaceAll("\n", " ");
 
     const pineconeClient = new Pinecone({
-      apiKey: env.PINECONE_API_KEY,
+      apiKey: process.env.PINECONE_API_KEY!,
     });
 
     const vectorStore = await getVectorStore(chatId);

@@ -20,9 +20,9 @@ export default function Home() {
       <Card className="p-6 flex flex-col items-center justify-center gap-4">
         <div className="flex flex-row items-center">
           <Image src="/docusage.png" alt="logo" width={35} height={35} />
-          <CardTitle> DocuSage</CardTitle>
+          <h4> DocuSage</h4>
         </div>
-        <CardDescription>
+        <div>
           <div>
             DocuSage is a PDF chatbot assistant that helps you <br /> understand
             all of your multiple PDF files at once.
@@ -49,7 +49,7 @@ export default function Home() {
               </Button>
             )}
           </div>
-        </CardDescription>
+        </div>
       </Card>
     </div>
   );

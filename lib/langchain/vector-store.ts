@@ -1,5 +1,4 @@
 import { Pinecone } from "@pinecone-database/pinecone";
-import { env } from "./config";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
 
@@ -8,7 +7,7 @@ export async function getVectorStore(chatId: string) {
   try {
     const embeddings = new OpenAIEmbeddings();
     const pineconeClient = new Pinecone({
-      apiKey: env.PINECONE_API_KEY,
+      apiKey: process.env.PINECONE_API_KEY!,
     });
 
     const index = pineconeClient.Index(chatId);
