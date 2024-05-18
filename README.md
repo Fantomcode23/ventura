@@ -30,7 +30,6 @@
 Ensure you have the following installed:
 
 - Node.js (v14 or higher)
-- PostgreSQL
 
 ## Usage
 
@@ -44,3 +43,7 @@ Ensure you have the following installed:
 - **Document Analysis (Langchain/OpenAI)**: Extract insights with NLP.
 - **Scalable Backend (Node.js/Vercel)**: Process requests and handle NLP tasks.
 - **Data Management (Supabase)**: Store chats, extracted information and uploaded files.
+
+![image](https://github.com/Fantomcode23/ventura/assets/96766940/343065cf-2aec-4310-8fe4-b5d3786dc809)
+
+![image](https://github.com/Fantomcode23/ventura/assets/96766940/d408075f-3f6a-46d2-8661-be35bce1f81d)
