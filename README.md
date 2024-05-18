@@ -1,10 +1,9 @@
 ## DocuSage
 
 1. **Information Overload Management**: Automatically analyze and extract key information from vast amounts of documents including research papers, textbooks, and articles.
-2. **Question Generation**: Assist in formulating effective research questions to guide the research process.
-3. **Simplified Citations**: Provide easy-to-refer sources for seamless citation management.
-4. **Interactive Exploration**: Allow for dynamic and multidimensional exploration of documents to uncover deeper insights.
-5. **Efficient Research Workflow**: Integrate document analysis, data extraction, and question generation into a streamlined workflow.
+2. **Simplified Citations**: Provide easy-to-refer sources for seamless citation management.
+3. **Interactive Exploration**: Allow for dynamic and multidimensional exploration of documents to uncover deeper insights.
+4. **Efficient Research Workflow**: Integrate document analysis, data extraction, and question generation into a streamlined workflow.
 
 ## Tech Stack
 
