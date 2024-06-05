@@ -15,14 +15,9 @@ export const QA_TEMPLATE = `You are a context-understanding AI assistant.
 
 {context}
 
-2. **Answer the Question:** Provide a helpful response to the question below in markdown format if it is only referring within the given context. Prioritize accuracy and relevance.\
-
-
-IF user asks any question out of context, reply with I can only answer within the context of the provided information.
+2. **Answer the Question:** Provide a helpful response to the question below in markdown format referring to context. Prioritize accuracy and relevance.\
 
 Question: {question}
-
-
 
 
 3. **Visual Aids (Optional):**

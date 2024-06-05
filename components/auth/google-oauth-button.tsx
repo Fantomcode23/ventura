@@ -15,7 +15,7 @@ export default function GoogleSignInButton(props: { nextUrl?: string }) {
     await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `http://localhost:3000/api/auth/callback?next=${
+        redirectTo: `https://docu-sage.vercel.app/api/auth/callback?next=${
           props.nextUrl || ""
         }`,
       },
